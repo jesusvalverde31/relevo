@@ -40,8 +40,8 @@ import java.time.format.DateTimeFormatter
 
 private val Forest = Color(0xFF153E35)
 private val Lime = Color(0xFFD8F77A)
-private val LightColors = lightColorScheme(primary = Forest, onPrimary = Color.White, primaryContainer = Color(0xFFE3EEDD), secondary = Color(0xFF5C693E), background = Color(0xFFF7F8F2), surface = Color(0xFFFCFDF8), surfaceVariant = Color(0xFFE9EDE3), onSurface = Color(0xFF19291F))
-private val DarkColors = darkColorScheme(primary = Lime, onPrimary = Forest, background = Color(0xFF111A16), surface = Color(0xFF19261F), primaryContainer = Forest)
+private val LightColors = lightColorScheme(primary = Forest, onPrimary = Color.White, primaryContainer = Color(0xFFE3EEDD), secondary = Color(0xFF5C693E), secondaryContainer = Color(0xFFE3EEDD), onSecondaryContainer = Forest, background = Color(0xFFF7F8F2), surface = Color(0xFFFCFDF8), surfaceVariant = Color(0xFFE9EDE3), onSurface = Color(0xFF19291F))
+private val DarkColors = darkColorScheme(primary = Lime, onPrimary = Forest, background = Color(0xFF111A16), surface = Color(0xFF19261F), primaryContainer = Forest, secondaryContainer = Color(0xFF255748), onSecondaryContainer = Lime)
 
 @Composable fun RelevoApp(vm: RelevoViewModel = viewModel()) {
     MaterialTheme(colorScheme = if (isSystemInDarkTheme()) DarkColors else LightColors) {

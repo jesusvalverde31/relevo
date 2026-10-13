@@ -76,6 +76,7 @@ class InventoryFlowTest {
         compose.waitUntil(15000) { compose.onAllNodesWithText("Modo de ejemplo:", substring = true).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Equipos", useUnmergedTree = true).performClick()
         compose.waitForIdle()
+        compose.waitUntil(15000) { compose.onAllNodesWithText("Ejemplos cargados. Están marcados como DEMO.").fetchSemanticsNodes().isEmpty() }
         val directory = screenshotDirectory()
         File(directory, "inventory.png").outputStream().use { compose.onRoot().captureToImage().asAndroidBitmap().compress(Bitmap.CompressFormat.PNG, 100, it) }
         compose.onNodeWithText("Resumen", useUnmergedTree = true).performClick()
