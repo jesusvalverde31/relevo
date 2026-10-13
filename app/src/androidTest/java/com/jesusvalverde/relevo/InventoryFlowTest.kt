@@ -23,6 +23,10 @@ class InventoryFlowTest {
     @get:Rule val compose = createEmptyComposeRule()
     private lateinit var scenario: ActivityScenario<MainActivity>
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
+    private fun screenshotDirectory(): File {
+        val output = InstrumentationRegistry.getArguments().getString("additionalTestOutputDir")
+        return File(output ?: requireNotNull(context.getExternalFilesDir(null)).absolutePath, "screenshots").apply { mkdirs() }
+    }
     @Before fun start() {
         context.deleteDatabase("relevo.db")
         scenario = ActivityScenario.launch(MainActivity::class.java)
@@ -34,7 +38,7 @@ class InventoryFlowTest {
         }
     }
     @After fun stop() {
-        val directory = File(context.getExternalFilesDir(null), "screenshots").apply { mkdirs() }
+        val directory = screenshotDirectory()
         InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()?.let { bitmap ->
             File(directory, "last-device-state.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
         }
@@ -42,7 +46,7 @@ class InventoryFlowTest {
     }
 
     @Test fun createLoanReturnAndPersist() {
-        compose.onNodeWithText("Nuevo equipo").performClick()
+        compose.onNodeWithText("Nuevo equipo", useUnmergedTree = true).performClick()
         compose.onNodeWithText("Nombre del equipo *").performTextInput("Taladro de prueba")
         compose.onNodeWithText("Ubicación habitual").performTextInput("Almacén")
         compose.onNodeWithText("Guardar equipo").performClick()
@@ -72,7 +76,7 @@ class InventoryFlowTest {
         compose.waitUntil(15000) { compose.onAllNodesWithText("Modo de ejemplo:", substring = true).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Equipos", useUnmergedTree = true).performClick()
         compose.waitForIdle()
-        val directory = File(context.getExternalFilesDir(null), "screenshots").apply { mkdirs() }
+        val directory = screenshotDirectory()
         File(directory, "inventory.png").outputStream().use { compose.onRoot().captureToImage().asAndroidBitmap().compress(Bitmap.CompressFormat.PNG, 100, it) }
         compose.onNodeWithText("Resumen", useUnmergedTree = true).performClick()
         compose.waitForIdle()
