@@ -25,10 +25,11 @@ class InventoryFlowTest {
     @Before fun start() {
         context.deleteDatabase("relevo.db")
         scenario = ActivityScenario.launch(MainActivity::class.java)
+        compose.waitUntil(15000) { compose.onAllNodesWithText("Nuevo equipo").fetchSemanticsNodes().isNotEmpty() }
     }
     @After fun stop() { scenario.close() }
 
-    @Test fun createEditLoanAndReturn() {
+    @Test fun createLoanReturnAndPersist() {
         compose.onNodeWithText("Nuevo equipo").performClick()
         compose.onNodeWithText("Nombre del equipo *").performTextInput("Taladro de prueba")
         compose.onNodeWithText("Ubicación habitual").performTextInput("Almacén")
