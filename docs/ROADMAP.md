@@ -22,4 +22,6 @@ Entrevistas y piloto con un responsable por dispositivo. Medir activación, recu
 
 Revisar nombre/marca (Relevo es provisional), requisitos vigentes de Google Play, cuenta y pruebas. Preparar release firmada, ficha de tienda, capturas reales y vídeo. Publicar en LinkedIn con resultados comprobables. Revisar visibilidad del repositorio: hacerlo privado no retira copias o forks previos.
 
+Antes de privatizar, revisar también las cuotas y presupuestos de GitHub Actions. Actualmente se usan runners estándar para repositorio público y retención de artefactos de un día; el tratamiento de costes cambia con repositorios privados.
+
 Sin fechas comprometidas. Cada fase depende de la anterior y del presupuesto de 0 €.

@@ -5,10 +5,17 @@
 **Control de herramientas y equipos para pequeños negocios.** Registra dónde están, quién los tiene y cuándo deben volver. Proyecto personal de [JesusValverDEV](https://github.com/jesusvalverde31).
 
 [![Android checks](https://github.com/jesusvalverde31/relevo/actions/workflows/android.yml/badge.svg)](https://github.com/jesusvalverde31/relevo/actions/workflows/android.yml)
+[![Device tests](https://github.com/jesusvalverde31/relevo/actions/workflows/device-tests.yml/badge.svg)](https://github.com/jesusvalverde31/relevo/actions/workflows/device-tests.yml)
 
 ## Estado
 
 Primera versión de prueba **0.1.0**. No es todavía un producto comercial ni está publicada en Google Play. El alcance inicial es un inventario gestionado desde un solo dispositivo. No hay sincronización entre empleados, pagos ni cuentas.
+
+## Capturas reales
+
+Capturadas por las pruebas instrumentadas en un emulador Android 15, con datos ficticios.
+
+<p><img src="docs/screenshots/dashboard.png" width="300" alt="Resumen del inventario con cuatro equipos de ejemplo"> <img src="docs/screenshots/inventory.png" width="300" alt="Búsqueda y filtros del inventario"></p>
 
 ## Funciones
 
@@ -55,6 +62,7 @@ Reglas separadas de Android, escritura atómica de ficha + historial, almacenami
 - [Hoja de ruta](docs/ROADMAP.md)
 - [Privacidad](docs/PRIVACY.md)
 - [Pruebas](docs/TESTING.md)
+- [Cómo instalar y probar](docs/INSTALL.md)
 - [Borrador de LinkedIn](docs/LINKEDIN.md)
 
 ## Autoría
