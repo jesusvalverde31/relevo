@@ -24,4 +24,11 @@ class BackupCodecTest {
         val text = BackupCodec.encode(emptyList(), emptyList()).replace("\"version\": 1", "\"version\": 99")
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(text) }
     }
+    @Test fun refusesInconsistentLoanState() {
+        val missingDate = Asset(name = "Taladro", status = AssetStatus.LOANED, holder = "Ana")
+        val staleHolder = Asset(name = "Taladro", holder = "Ana")
+        listOf(missingDate, staleHolder).forEach { asset ->
+            assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(BackupCodec.encode(listOf(asset), emptyList())) }
+        }
+    }
 }

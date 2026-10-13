@@ -29,6 +29,8 @@ object AssetRules {
         !validDate(asset.maintenanceDate) -> "Revisa la fecha de mantenimiento (AAAA-MM-DD)."
         !validDate(asset.returnDate) -> "Revisa la fecha de devolución (AAAA-MM-DD)."
         asset.status == AssetStatus.LOANED && asset.holder.isBlank() -> "Indica quién tiene el equipo."
+        asset.status == AssetStatus.LOANED && asset.returnDate.isBlank() -> "Indica la fecha de devolución del préstamo."
+        asset.status != AssetStatus.LOANED && (asset.holder.isNotEmpty() || asset.returnDate.isNotEmpty()) -> "Un equipo sin préstamo no puede tener responsable de préstamo ni devolución pendiente."
         else -> null
     }
     fun lend(asset: Asset, holder: String, due: String, today: LocalDate = LocalDate.now()): Asset {

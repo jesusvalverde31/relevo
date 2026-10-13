@@ -1,6 +1,7 @@
 package com.jesusvalverde.relevo
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
@@ -25,9 +26,20 @@ class InventoryFlowTest {
     @Before fun start() {
         context.deleteDatabase("relevo.db")
         scenario = ActivityScenario.launch(MainActivity::class.java)
-        compose.waitUntil(15000) { compose.onAllNodesWithText("Nuevo equipo").fetchSemanticsNodes().isNotEmpty() }
+        try {
+            compose.waitUntil(15000) { compose.onAllNodesWithText("Nuevo equipo", useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
+        } catch (e: Exception) {
+            Log.e("RelevoTest", compose.onRoot(useUnmergedTree = true).printToString())
+            throw e
+        }
     }
-    @After fun stop() { scenario.close() }
+    @After fun stop() {
+        val directory = File(context.getExternalFilesDir(null), "screenshots").apply { mkdirs() }
+        InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()?.let { bitmap ->
+            File(directory, "last-device-state.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+        }
+        scenario.close()
+    }
 
     @Test fun createLoanReturnAndPersist() {
         compose.onNodeWithText("Nuevo equipo").performClick()
